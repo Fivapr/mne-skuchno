@@ -7,25 +7,15 @@ height 500px;
 position: relative;
 `
 
-export const Subtitles = styled.div`
+export const PlayIcon = styled.img`
+cursor: pointer;
+max-width: 400px;
+max-height: 300px;
 position: absolute;
-width: 100%;
-height: 50px;
-bottom: 50px;
-display: flex;
-justify-content: center;
-align-items: center;
-`
-
-export const SubtitlesText = styled.div`
-width: 90%; 
-
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 8px;
-
-background-color: rgba(0,0,0,0.5);
-color: orange;
-font-size: 20px;
+top: 0;
+bottom: 0;
+left: 0; 
+right: 0; 
+margin: auto;
+z-index: 10;
 `

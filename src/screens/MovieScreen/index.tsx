@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react'
-import { PlayerWrapper, Subtitles, SubtitlesText } from './styles'
+import { Subtitles } from './components/Subtitles'
+import { PlayerWrapper, PlayIcon } from './styles'
+import play from './play.svg'
 
 export const MovieScreen = () => {
   const ref = useRef<HTMLVideoElement>(null)
   const [sub, setSub] = useState<string | undefined>()
-  const [isPaused, setPaused] = useState(ref.current?.paused)
+  const [isTouched, setTouched] = useState(false)
 
   const handlePlay = async () => {
     await ref.current?.play()
@@ -19,23 +21,23 @@ export const MovieScreen = () => {
       subtitles.mode = 'hidden'
       subtitles.oncuechange = handleCueChange
     }
+
+    setTouched(true)
   }
 
   const handlePause = () => {
     ref.current?.pause()
-    setPaused(true)
   }
 
   const togglePlay = () => {
     ref.current?.paused ? handlePlay() : handlePause()
-    setPaused(false)
   }
 
   return (
     <PlayerWrapper onClick={togglePlay}>
       <video width="800" height="500" ref={ref}>
         <source
-          src="https://www177.o0-1.com/token=-uGmfECvjpTWyJlZOEGA2g/1590274442/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
+          src="https://www1872.o0-4.com/token=YSwOG4wQ_4S42Om4Y8LvWw/1590349435/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
           type="video/mp4"
         ></source>
         <track
@@ -45,10 +47,9 @@ export const MovieScreen = () => {
           srcLang="en"
         ></track>
       </video>
-      {sub && (
-        <Subtitles>
-          <SubtitlesText>{sub}</SubtitlesText>
-        </Subtitles>
+      <Subtitles sub={sub} />
+      {!isTouched && (
+        <PlayIcon src={play} width="800" height="500" alt="Play" />
       )}
     </PlayerWrapper>
   )
