@@ -1,14 +1,15 @@
 import React, { useState, useRef } from 'react'
 import { Subtitles } from './components/Subtitles'
 import { PlayerWrapper, PlayIcon } from './styles'
-import play from './play.svg'
+import playIcon from './playIcon.svg'
 
 export const MovieScreen = () => {
   const ref = useRef<HTMLVideoElement>(null)
   const [sub, setSub] = useState<string | undefined>()
   const [isTouched, setTouched] = useState(false)
+  const [isPaused, setPaused] = useState(true)
 
-  const handlePlay = async () => {
+  const play = async () => {
     await ref.current?.play()
 
     const handleCueChange = function (this: TextTrack): void {
@@ -23,14 +24,16 @@ export const MovieScreen = () => {
     }
 
     setTouched(true)
+    setPaused(false)
   }
 
-  const handlePause = () => {
+  const pause = () => {
     ref.current?.pause()
+    setPaused(true)
   }
 
   const togglePlay = () => {
-    ref.current?.paused ? handlePlay() : handlePause()
+    ref.current?.paused ? play() : pause()
   }
 
   return (
@@ -47,9 +50,9 @@ export const MovieScreen = () => {
           srcLang="en"
         ></track>
       </video>
-      <Subtitles sub={sub} />
+      <Subtitles sub={sub} pause={pause} play={play} />
       {!isTouched && (
-        <PlayIcon src={play} width="800" height="500" alt="Play" />
+        <PlayIcon src={playIcon} width="800" height="500" alt="Play" />
       )}
     </PlayerWrapper>
   )

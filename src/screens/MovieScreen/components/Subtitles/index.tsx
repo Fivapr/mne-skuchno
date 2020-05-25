@@ -3,6 +3,8 @@ import { SubtitlesWrapper, SubtitlesText } from './styles'
 
 interface Props {
   sub?: string
+  play: () => void
+  pause: () => void
 }
 
 export const Subtitles = (props: Props) => {
@@ -11,7 +13,7 @@ export const Subtitles = (props: Props) => {
   }
 
   return (
-    <SubtitlesWrapper>
+    <SubtitlesWrapper onMouseEnter={props.pause} onMouseLeave={props.play}>
       <SubtitlesText>{props.sub}</SubtitlesText>
     </SubtitlesWrapper>
   )
