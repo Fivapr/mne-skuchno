@@ -3,6 +3,7 @@ import { Subtitles } from './components/Subtitles'
 import { PlayerWrapper, PlayIcon, FullscreenIcon, Video } from './styles'
 import playIcon from './playIcon.svg'
 import fullscreenIcon from './fullscreenIcon.svg'
+import { Controls } from './components/Controls'
 
 export const MovieScreen = () => {
   const ref = useRef<HTMLVideoElement>(null)
@@ -11,6 +12,8 @@ export const MovieScreen = () => {
   const [isTouched, setTouched] = useState(false)
   const [isHardPaused, setHardPaused] = useState(true)
   const [isFullscreen, setFullscreen] = useState(false)
+  const [time, setTime] = useState<number | undefined>(0)
+  const [duration, setDuration] = useState<number | undefined>(0)
 
   const showSubtitles = () => {
     const subtitles = ref.current?.textTracks[0]
@@ -28,6 +31,10 @@ export const MovieScreen = () => {
   const play = async () => {
     await ref.current?.play()
 
+    const time = ref.current?.currentTime
+    const duration = ref.current?.duration
+    setTime(time)
+    setDuration(duration)
     showSubtitles()
     setTouched(true)
     setHardPaused(false)
@@ -83,7 +90,7 @@ export const MovieScreen = () => {
       )}
       <Video isFullscreen={isFullscreen} ref={ref}>
         <source
-          src="https://www1872.o0-4.com/token=vxNaogZ3cK2LpHhCx15Q5w/1590423743/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
+          src="https://www1412.o0-3.com/token=4J0thLrCk54wFoKuXEhmqw/1590438400/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
           type="video/mp4"
         ></source>
         <track
@@ -99,6 +106,14 @@ export const MovieScreen = () => {
         pause={subtitleEnterPause}
         play={subtitleLeavePlay}
       />
+      {isTouched && (
+        <Controls
+          elapsedTime={time}
+          duration={duration}
+          isFullscreen={isFullscreen}
+          setVolume={() => {}}
+        />
+      )}
     </PlayerWrapper>
   )
 }
