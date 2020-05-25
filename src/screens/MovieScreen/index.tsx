@@ -72,6 +72,7 @@ export const MovieScreen = () => {
       onClick={togglePlay}
       ref={wrapperRef}
     >
+      {!isTouched && <PlayIcon src={playIcon} alt="Play" />}
       {isTouched && (
         <FullscreenIcon
           src={fullscreenIcon}
@@ -98,7 +99,6 @@ export const MovieScreen = () => {
         pause={subtitleEnterPause}
         play={subtitleLeavePlay}
       />
-      {!isTouched && <PlayIcon src={playIcon} alt="Play" />}
     </PlayerWrapper>
   )
 }
