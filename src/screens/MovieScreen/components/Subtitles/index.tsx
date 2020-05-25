@@ -5,16 +5,28 @@ interface Props {
   sub?: string
   play: () => void
   pause: () => void
+  isFullscreen: boolean
 }
 
 export const Subtitles = (props: Props) => {
+  const stopPropagation = (e: any) => {
+    e.stopPropagation()
+  }
+
   if (!props.sub) {
     return null
   }
 
   return (
-    <SubtitlesWrapper onMouseEnter={props.pause} onMouseLeave={props.play}>
-      <SubtitlesText>{props.sub}</SubtitlesText>
+    <SubtitlesWrapper
+      isFullscreen={props.isFullscreen}
+      onClick={stopPropagation}
+      onMouseEnter={props.pause}
+      onMouseLeave={props.play}
+    >
+      <SubtitlesText isFullscreen={props.isFullscreen}>
+        {props.sub}
+      </SubtitlesText>
     </SubtitlesWrapper>
   )
 }
