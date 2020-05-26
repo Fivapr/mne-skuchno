@@ -38,21 +38,22 @@ display: flex;
 justify-content: flex-start;
 align-items: center;
 
-background-color: #666666
+background-color: #666666;
+cursor: pointer;
 `
 
-interface TimelineProps {
+interface Percent {
   percent: number
 }
 
-export const ElapsedTime = styled.div<TimelineProps>`
+export const ElapsedTime = styled.div<Percent>`
 height: 100%;
 width: ${props => props.percent}%;
 
 background-color: #87CEFA;
 `
 
-export const BufferedTime = styled.div<TimelineProps>`
+export const BufferedTime = styled.div<Percent>`
 height: 100%;
 width: ${props => props.percent}%;
 
@@ -64,9 +65,54 @@ width: 100px;
 height: 100%;
 
 position: relative;
-padding-left: 24px;
 
 display: flex;
 justify-content: flex-start;
 align-items: center;
+`
+
+export const VolumeIconWrapper = styled.div`
+width: 24px;
+height: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+export const VolumeIcon = styled.img`
+height: 18px;
+width: 18px;
+cursor: pointer;
+`
+
+export const VolumeSliderWrapper = styled.div`
+flex: 1;
+height: 100%;
+
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+export const VolumeSlider = styled.div`
+width: 70px;
+margin-right: 6px;
+height: 3px;
+
+background-color: #000000;
+
+display: flex;
+justify-content: flex-start;
+align-items: center;
+
+cursor: pointer;
+`
+
+export const VolumeLevel = styled.div<Percent>`
+width: ${props => props.percent}%;
+height: 100%;
+
+background-color: #FFFFFF;
+cursor: col-resize;
 `

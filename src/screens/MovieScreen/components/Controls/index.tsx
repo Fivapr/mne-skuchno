@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { addSeconds, format } from 'date-fns'
 import {
   ControlsWrapper,
@@ -7,7 +7,14 @@ import {
   Volume,
   ElapsedTime,
   BufferedTime,
+  VolumeIconWrapper,
+  VolumeIcon,
+  VolumeSliderWrapper,
+  VolumeSlider,
+  VolumeLevel,
 } from './styles'
+
+import volumeIcon from './volumeIcon.svg'
 
 interface Props {
   setVolume: () => void
@@ -51,7 +58,17 @@ export const Controls = (props: Props) => {
       <Time isFullscreen={props.isFullscreen}>
         {formatTime(props.duration)}
       </Time>
-      <Volume />
+      <Volume>
+        <VolumeIconWrapper>
+          <VolumeIcon src={volumeIcon} />
+        </VolumeIconWrapper>
+
+        <VolumeSliderWrapper>
+          <VolumeSlider>
+            <VolumeLevel percent={80} />
+          </VolumeSlider>
+        </VolumeSliderWrapper>
+      </Volume>
     </ControlsWrapper>
   )
 }
