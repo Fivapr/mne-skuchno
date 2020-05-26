@@ -36,7 +36,7 @@ export const MovieScreen = () => {
 
     if (ref.current) {
       ref.current.ontimeupdate = function (this, e) {
-        setTime(e.timeStamp / 1000)
+        setTime(ref.current?.currentTime)
         setBufferedTime(ref.current?.buffered.end(0))
       }
 

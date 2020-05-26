@@ -106,7 +106,7 @@ display: flex;
 justify-content: flex-start;
 align-items: center;
 
-cursor: pointer;
+cursor: col-resize;
 `
 
 export const VolumeLevel = styled.div<Percent>`
@@ -114,5 +114,4 @@ width: ${props => props.percent}%;
 height: 100%;
 
 background-color: #FFFFFF;
-cursor: col-resize;
 `
