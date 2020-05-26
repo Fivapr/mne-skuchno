@@ -14,6 +14,7 @@ export const MovieScreen = () => {
   const [isFullscreen, setFullscreen] = useState(false)
   const [time, setTime] = useState<number | undefined>(0)
   const [duration, setDuration] = useState<number | undefined>(0)
+  const [bufferedTime, setBufferedTime] = useState<number | undefined>(0)
 
   const showSubtitles = () => {
     const subtitles = ref.current?.textTracks[0]
@@ -31,10 +32,22 @@ export const MovieScreen = () => {
   const play = async () => {
     await ref.current?.play()
 
-    const time = ref.current?.currentTime
-    const duration = ref.current?.duration
-    setTime(time)
-    setDuration(duration)
+    // const time = ref.current?.currentTime
+
+    if (ref.current) {
+      ref.current.ontimeupdate = function (this, e) {
+        setTime(e.timeStamp / 1000)
+        setBufferedTime(ref.current?.buffered.end(0))
+      }
+
+      ref.current.onsuspend = function (this, e) {
+        console.log(e)
+      }
+
+      const duration = ref.current?.duration
+      setDuration(duration)
+    }
+
     showSubtitles()
     setTouched(true)
     setHardPaused(false)
@@ -90,7 +103,7 @@ export const MovieScreen = () => {
       )}
       <Video isFullscreen={isFullscreen} ref={ref}>
         <source
-          src="https://www1412.o0-3.com/token=4J0thLrCk54wFoKuXEhmqw/1590438400/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
+          src="https://www1030.o0-3.com/token=XUZEggK32flLJKmxIR9kCA/1590519243/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
           type="video/mp4"
         ></source>
         <track
@@ -112,6 +125,7 @@ export const MovieScreen = () => {
           duration={duration}
           isFullscreen={isFullscreen}
           setVolume={() => {}}
+          bufferedTime={bufferedTime}
         />
       )}
     </PlayerWrapper>

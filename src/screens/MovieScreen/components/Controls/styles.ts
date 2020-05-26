@@ -41,6 +41,24 @@ align-items: center;
 background-color: #666666
 `
 
+interface TimelineProps {
+  percent: number
+}
+
+export const ElapsedTime = styled.div<TimelineProps>`
+height: 100%;
+width: ${props => props.percent}%;
+
+background-color: #87CEFA;
+`
+
+export const BufferedTime = styled.div<TimelineProps>`
+height: 100%;
+width: ${props => props.percent}%;
+
+background-color: #FFFFFF;
+`
+
 export const Volume = styled.div`
 width: 100px;
 height: 100%;
