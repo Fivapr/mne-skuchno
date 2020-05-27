@@ -37,7 +37,9 @@ export const MovieScreen = () => {
     if (ref.current) {
       ref.current.ontimeupdate = function (this, e) {
         setTime(ref.current?.currentTime)
-        setBufferedTime(ref.current?.buffered.end(0))
+        setBufferedTime(
+          ref.current?.buffered.end(ref.current?.buffered.length - 1)
+        )
       }
 
       const duration = ref.current?.duration
@@ -88,6 +90,12 @@ export const MovieScreen = () => {
     }
   }
 
+  const setVideoTime = (time: number) => {
+    if (ref.current) {
+      ref.current.currentTime = time
+    }
+  }
+
   return (
     <PlayerWrapper
       isFullscreen={isFullscreen}
@@ -124,6 +132,7 @@ export const MovieScreen = () => {
       {isTouched && (
         <Controls
           elapsedTime={time}
+          setTime={setVideoTime}
           duration={duration}
           isFullscreen={isFullscreen}
           setVolume={setVolume}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { addSeconds, format } from 'date-fns'
 import {
   ControlsWrapper,
@@ -16,10 +16,11 @@ import {
 import volumeIcon from './volumeIcon.svg'
 
 interface Props {
+  isFullscreen: boolean
   setVolume: (volume: number) => void
+  setTime: (time: number) => void //seconds
   elapsedTime?: number // seconds
   duration?: number // seconds
-  isFullscreen: boolean
   bufferedTime?: number // seconds
 }
 
@@ -30,6 +31,7 @@ const formatTime = (seconds: number = 0) => {
 
 export const Controls = (props: Props) => {
   const [volume, setVolume] = useState()
+  const timelineRef = useRef<HTMLDivElement>(null)
 
   const stopPropagation = (e: any) => {
     e.stopPropagation()
@@ -45,9 +47,18 @@ export const Controls = (props: Props) => {
   }
 
   const handleVolumeChange = (e: any) => {
-    console.log(e.target.value)
     setVolume(e.target.value)
     props.setVolume(e.target.value / 100)
+  }
+
+  const handleTimelineClick = (e: any) => {
+    if (props.duration && timelineRef && timelineRef.current) {
+      props.setTime(
+        ((e.nativeEvent.clientX - timelineRef.current.offsetLeft) /
+          timelineRef.current.clientWidth) *
+          props.duration
+      )
+    }
   }
 
   return (
@@ -58,7 +69,7 @@ export const Controls = (props: Props) => {
       <Time isFullscreen={props.isFullscreen}>
         {formatTime(props.elapsedTime)}
       </Time>
-      <Timeline>
+      <Timeline ref={timelineRef} onClick={handleTimelineClick}>
         <ElapsedTime percent={elapsedPercent} />
         <BufferedTime percent={bufferedPercent} />
       </Timeline>
