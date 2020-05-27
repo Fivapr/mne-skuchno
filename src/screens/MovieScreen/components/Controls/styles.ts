@@ -95,7 +95,7 @@ justify-content: center;
 align-items: center;
 `
 
-export const VolumeSlider = styled.div`
+export const VolumeSlider = styled.input`
 width: 70px;
 margin-right: 6px;
 height: 3px;
@@ -107,11 +107,4 @@ justify-content: flex-start;
 align-items: center;
 
 cursor: col-resize;
-`
-
-export const VolumeLevel = styled.div<Percent>`
-width: ${props => props.percent}%;
-height: 100%;
-
-background-color: #FFFFFF;
 `

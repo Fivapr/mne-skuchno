@@ -40,10 +40,6 @@ export const MovieScreen = () => {
         setBufferedTime(ref.current?.buffered.end(0))
       }
 
-      ref.current.onsuspend = function (this, e) {
-        console.log(e)
-      }
-
       const duration = ref.current?.duration
       setDuration(duration)
     }
@@ -86,6 +82,12 @@ export const MovieScreen = () => {
     }
   }
 
+  const setVolume = (volume: number) => {
+    if (ref.current) {
+      ref.current.volume = volume
+    }
+  }
+
   return (
     <PlayerWrapper
       isFullscreen={isFullscreen}
@@ -103,7 +105,7 @@ export const MovieScreen = () => {
       )}
       <Video isFullscreen={isFullscreen} ref={ref}>
         <source
-          src="https://www1030.o0-3.com/token=XUZEggK32flLJKmxIR9kCA/1590519243/94.180.0.0/29/c/4e/4b9421e7a1f208e0d8b110e54bbab4ec-360p.mp4"
+          src="http://www.hamatata.com/page/data/shrek.webm"
           type="video/mp4"
         ></source>
         <track
@@ -124,7 +126,7 @@ export const MovieScreen = () => {
           elapsedTime={time}
           duration={duration}
           isFullscreen={isFullscreen}
-          setVolume={() => {}}
+          setVolume={setVolume}
           bufferedTime={bufferedTime}
         />
       )}

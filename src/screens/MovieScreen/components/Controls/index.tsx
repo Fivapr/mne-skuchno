@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { addSeconds, format } from 'date-fns'
 import {
   ControlsWrapper,
@@ -11,13 +11,12 @@ import {
   VolumeIcon,
   VolumeSliderWrapper,
   VolumeSlider,
-  VolumeLevel,
 } from './styles'
 
 import volumeIcon from './volumeIcon.svg'
 
 interface Props {
-  setVolume: () => void
+  setVolume: (volume: number) => void
   elapsedTime?: number // seconds
   duration?: number // seconds
   isFullscreen: boolean
@@ -30,6 +29,8 @@ const formatTime = (seconds: number = 0) => {
 }
 
 export const Controls = (props: Props) => {
+  const [volume, setVolume] = useState()
+
   const stopPropagation = (e: any) => {
     e.stopPropagation()
   }
@@ -41,6 +42,12 @@ export const Controls = (props: Props) => {
     elapsedPercent = (props?.elapsedTime / props?.duration) * 100
     bufferedPercent =
       (props?.bufferedTime / props?.duration) * 100 - elapsedPercent
+  }
+
+  const handleVolumeChange = (e: any) => {
+    console.log(e.target.value)
+    setVolume(e.target.value)
+    props.setVolume(e.target.value / 100)
   }
 
   return (
@@ -64,9 +71,13 @@ export const Controls = (props: Props) => {
         </VolumeIconWrapper>
 
         <VolumeSliderWrapper>
-          <VolumeSlider>
-            <VolumeLevel percent={80} />
-          </VolumeSlider>
+          <VolumeSlider
+            min="0"
+            max="100"
+            type="range"
+            onChange={handleVolumeChange}
+            value={volume}
+          ></VolumeSlider>
         </VolumeSliderWrapper>
       </Volume>
     </ControlsWrapper>
