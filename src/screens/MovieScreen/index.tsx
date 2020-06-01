@@ -108,6 +108,7 @@ export const MovieScreen = (props: Props) => {
       ref={wrapperRef}
     >
       {!isTouched && <PlayIcon src={playIcon} alt="Play" />}
+
       {isTouched && (
         <FullscreenIcon
           src={fullscreenIcon}
