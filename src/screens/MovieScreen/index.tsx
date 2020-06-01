@@ -5,7 +5,12 @@ import playIcon from './playIcon.svg'
 import fullscreenIcon from './fullscreenIcon.svg'
 import { Controls } from './components/Controls'
 
-export const MovieScreen = () => {
+interface Props {
+  src: string
+  subSrc: string
+}
+
+export const MovieScreen = (props: Props) => {
   const ref = useRef<HTMLVideoElement>(null)
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [sub, setSub] = useState<string | undefined>()
@@ -111,15 +116,11 @@ export const MovieScreen = () => {
           onClick={toggleFullscreen}
         />
       )}
-      <Video isFullscreen={isFullscreen} ref={ref}>
-        <source
-          src="http://www.hamatata.com/page/data/shrek.webm"
-          type="video/mp4"
-        ></source>
+      <Video src={props.src} isFullscreen={isFullscreen} ref={ref}>
         <track
           label="English"
           kind="subtitles"
-          src="./adventureTime.vtt"
+          src={props.subSrc}
           srcLang="en"
         ></track>
       </Video>
