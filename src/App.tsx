@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
-import { MovieScreen } from './screens/MovieScreen'
+import React, { useState } from "react";
+import { MovieScreen } from "./screens/MovieScreen";
 
-import { Global, css } from '@emotion/core'
-import emotionNormalize from 'emotion-normalize'
-import { SrcInput } from './components/SrcInput'
+import { Global, css } from "@emotion/core";
+import emotionNormalize from "emotion-normalize";
+import { SrcInput } from "./components/SrcInput";
+
+import "./services/lingualeo";
 
 export const App = () => {
-  const [src, setSrc] = useState('http://www.hamatata.com/page/data/shrek.webm')
-  const [subSrc, setSubSrc] = useState('./adventureTime.vtt')
+  const [src, setSrc] = useState(
+    "http://www.hamatata.com/page/data/shrek.webm"
+  );
+  const [subSrc, setSubSrc] = useState("./adventureTime.vtt");
 
   return (
     <>
@@ -21,5 +25,5 @@ export const App = () => {
       <SrcInput onButtonClick={setSrc} />
       <SrcInput onButtonClick={setSubSrc} />
     </>
-  )
-}
+  );
+};

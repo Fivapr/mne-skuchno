@@ -1,25 +1,27 @@
-import React from 'react'
-import { StyledWord } from './styles'
+import React from "react";
+import { StyledWord } from "./styles";
+import { addWord } from "../../../../../../services/lingualeo";
 
 interface Props {
-  word: string
-  context?: string
+  word: string;
+  context?: string;
 }
 
 export const Word = (props: Props) => {
   // const notEnglishChars = /[^a-zA-Z0-9 !?'"-.]+/
-  const lettersOnly = /[^a-zA-Z]+/
+  const lettersOnly = /[^a-zA-Z]+/;
 
   return (
     <StyledWord
       onClick={() => {
+        addWord(props.word.replace(lettersOnly, ""));
         console.log({
-          word: props.word.replace(lettersOnly, ''),
+          word: props.word.replace(lettersOnly, ""),
           context: props.context,
-        })
+        });
       }}
     >
       {props.word}
     </StyledWord>
-  )
-}
+  );
+};
